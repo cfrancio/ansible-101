@@ -1,0 +1,25 @@
+ansible all -m setup
+
+ansible web -m ping -i inventory/
+
+ansible node-1 -m copy -a 'content="Managed by Ansible\n" dest=/etc/motd'
+
+ansible -i inventory/ node-1 -m user -a 'name=ansible2 state=present' -b
+
+ansible -i inventory/ node-1 -m user -a 'name=ansible2 state=absent' -b
+
+ansible -i inventory/ node-1 -m authorized_key -a 'user=ansible2 key="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDhB2/eiBOdnX1nFO6UJu/v/XtDXCV3s5J/c2DgoCbClfeOHaH/KbRDlC92Pl3xY6NKh5/5KdZC0YVIMnNGql/sZacPtk21gu20OWQpZwPebHnzJU9e9STHvIIVz/mCDyGdzxAv+KLZrYXPZ/Wjg8P5DXk6WZLlnlVRMIwaUR4xn8GBfcbQfxK5RvoWqV0vTu86gJwumNtGIZZv7TRRowkJmHzyb6W47JF77+2ZxAeDbVmswGkC/S9CSV1MreejEp2jJgENOcKGkcucS3GJEZ6ZjoeSzTYlJ0EVksPDPSnb/bTsAlv/LjpoADNi+SHtuRP2QLcrWOOfNIR/KTildj7z ansible@ansible-tower"' -b
+
+ansible -i inventory/ web -m command -a 'id'
+
+ansible -i inventory/ web -m command -a 'uname -r'
+
+ansible web -b -m yum -a "name=httpd state=present"
+
+ansible web -b -m service -a "name=httpd state=started"
+
+ansible web -b -m service -a "name=httpd state=stopped"
+
+ansible web -b -m yum -a "name=httpd state=absent"
+
+
